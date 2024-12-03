@@ -3,9 +3,18 @@
 # Part 2
 import re
 
-def do_or_dont(egg):
-    pass
-
+def do_or_dont(text, do):
+    do_dont_list=re.split(r"(do\(\)|don't\(\))", text)
+    new_list=[]
+    for part in do_dont_list:
+        if part == "don't()":
+            do = False
+        elif part == "do()":
+            do = True
+        else:
+            if do == True:
+                new_list.append(part)
+    return(new_list, do)
 
 def searcher(bean):
     running_total = 0
@@ -22,6 +31,10 @@ def searcher(bean):
 
 with open("input.txt") as lines:
     total=0
+    value = True # on/off switch sets on first
     for line in lines: # iterate through each file
-        total+=searcher(line)
+        good, value=do_or_dont(line.strip(), value) #brings back value
+        for section in good:
+            total+=searcher(section)
+        print(total)
 print(f"Total: {total}") # print the total
