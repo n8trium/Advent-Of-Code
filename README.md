@@ -4,6 +4,5 @@ It has been running since 2015.
 The programming puzzles cover a variety of skill sets and skill levels and can be solved using any programming language.
 These solutions are done by n8trium.
 
-Years:
-
+## Years:
 - [2024/](2024/)
