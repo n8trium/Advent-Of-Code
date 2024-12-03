@@ -1,6 +1,6 @@
 # Advent of code
 # Day 1
-# Part 1
+# Part 2
 
 total = 0 # our total subtracted from each list
 b=[] # first list
