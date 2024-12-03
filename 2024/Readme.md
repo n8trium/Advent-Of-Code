@@ -1,6 +1,6 @@
 # Day 1: Historian Hysteria
-[Part 1](#-part-1)
-[Part 2](#-part-2)
+[Part 1](#part-1)
+[Part 2](#part-2)
 
 The Chief Historian is always present for the big Christmas sleigh launch, but nobody has seen him in months!
 Last anyone heard, he was visiting locations that are historically significant to the North Pole; a group of Senior Historians has asked you to accompany them as they check the places they think he was most likely to visit.
