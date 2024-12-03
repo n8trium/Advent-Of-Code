@@ -1,4 +1,4 @@
-# Day 1: Historian Hysteria
+# Day 1: [Historian Hysteria](https://adventofcode.com/2024/day/1)
 [Part 1](#part-1)
 [Part 2](#part-2)
 
