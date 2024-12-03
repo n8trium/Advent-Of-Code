@@ -6,4 +6,4 @@ These solutions are done by n8trium.
 
 Years:
 
-    [2024/](2024/)
+- [2024/](2024/)
