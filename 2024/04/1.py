@@ -31,23 +31,23 @@ def direction_finder(x_1, x_2, y_1, y_2):
 def direction_reverser(dir):
     dir=int(dir)
     match dir:
-        case 1:
+        case 1: # North
             x_dir,y_dir=0,-1
-        case 2:
+        case 2: # NorthEast
             x_dir,y_dir=1,-1
-        case 3:
+        case 3: # East
             x_dir,y_dir=1,0
-        case 4:
+        case 4: # SouthEast
             x_dir,y_dir=1,1
-        case 5:
+        case 5: # South
             x_dir,y_dir=0,1
-        case 6:
+        case 6: # SouthWest
             x_dir,y_dir=-1,1
-        case 7:
+        case 7: # West
             x_dir,y_dir=-1,0
-        case 8:
+        case 8: # NorthWest
             x_dir,y_dir=-1,-1
-        case _:
+        case _: # Center
             x_dir,y_dir=0,0
     return(x_dir, y_dir)
 
