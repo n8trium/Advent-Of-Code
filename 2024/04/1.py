@@ -64,59 +64,59 @@ def find_x(word_search):
                 x_y.append(j)
     return(x_x, x_y)
 
-def find_next_letter(word_search, x_coord, y_coord, letter="M", direction=0):
+def find_next_letter(word_search, x_0, y_0, letter="M", direction=0):
     rows=len(word_search)
     columns=len(word_search[0])
     x_pos=[]
     y_pos=[]
     dir_list=[]
-    a=None
     if int(direction)==0:
         for i in range(0,3):
-            for j in range (0,3):
-                x_2=int(x_coord)+int(i)-1
-                y_2=int(y_coord)+int(j)-1
-                if x_2 or y_2 < 0:
-                    print("a")
-                    pass
-                elif x_2 > columns:
-                    print("b")
-                    pass
-                elif y_2 > rows:
-                    print("c")
-                    pass
-                else:
-                    a = re.search(str(letter), word_search[x_2][y_2])
-                    print(a)
-                if a != None:
-                    x_pos.append(x_2)
-                    y_pos.append(y_2)
-                    print(x_coord, y_coord, x_pos[-1], y_pos[-1])
-                    dir_list.append(direction_finder(x_coord, x_pos[-1], y_coord, y_pos[-1]))
+            x_1=x_0+i-1
+            if 0<=x_1<rows:
+                for j in range (0,3):
+                    y_1=y_0+j-1
+                    if 0<=y_1<columns:
+                        if letter==str(word_search[x_1][y_1]):
+                            print(f"{letter} found at {x_1}, {y_1}")
+                            x_pos.append(x_1)
+                            y_pos.append(y_1)
+                            dir_list.append(direction_finder(x_0, x_1, y_0, y_1))
         return(x_pos, y_pos, dir_list)
     
-    # if direction!=0:
-    #    for i in range(int(x_coord), int(x_coord)-1):
-    #        for j in range(int(y_coord)-1, int(y_coord)-1):
-    #            a = re.search(str(letter), word_search[i][j])
-    #            if a != None:
-    #                x_pos.append(i)
-    #                y_pos.append(j)
-    #                dir_list.append(direction_finder(x_coord, x_pos[-1], y_coord, y_pos[-1]))
-    #    return(x_pos, y_pos, dir_list)
+    if direction!=0:
+        x_1, y_1 = direction_reverser(direction)
+        x_1+=int(x_0)
+        y_1+=int(y_0)
+        if 0<=x_1<rows:
+            if 0<=y_1<columns:
+                if letter==str(word_search[x_1][y_1]):
+                    print(f"{letter} found at {x_1}, {y_1}")
+                    if letter != "S":
+                        x_pos.append(x_1)
+                        y_pos.append(y_1)
+                        return(x_pos, y_pos, direction)
+                    else:
+                        return(int(1))
 
-with open("example.txt") as lines:
+with open("input.txt") as lines:
+    total=0
     matrix = []
     for line in lines: # iterate through each file
         row =[]
         for element in str(line).strip():
             row.append(str(element))
         matrix.append(row)
-    x_1, y_1 = find_x(matrix)
-    for i in range(len(x_1)):
-        x_2, y_2, dir_list = find_next_letter(matrix, x_1[i], y_1[i], "M", 0)
-        print(f"X found at {x_1[i]}, {y_1[i]}")
-        print(x_2, y_2, dir_list)
+    x_0, y_0 = find_x(matrix)
+    for i in range(len(x_0)):
+        print(f"X found at {x_0[i]}, {y_0[i]}")
+        if find_next_letter(matrix, x_0[i], y_0[i], "M", 0) != None:
+            x_1_list, y_1_list, dir_list = find_next_letter(matrix, x_0[i], y_0[i], "M", 0)
+            for x, y, dir in zip(x_1_list, y_1_list, dir_list):
+                if find_next_letter(matrix, x, y, "A", dir) != None:
+                    x_2, y_2, dir = find_next_letter(matrix, x, y, "A", dir)
+                    a=find_next_letter(matrix, x_2[0], y_2[0], "S", dir)
+                    if a==1:
+                        total+=int(a)
 
-        
-        
+print(f"Total: {total}")
