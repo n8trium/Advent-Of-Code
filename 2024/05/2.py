@@ -2,28 +2,9 @@
 # Day 5
 # Part 2
 
-# Finds the indexes of numbers
-def num_search(num, rules):
-    x_list=[]
-    y_list=[]
-    # check each rule
-    for x in range(len(rules)):
-        # look for a number in each rule
-        for y in range(len(rules[x])):
-            if rules[x][y]==num:
-                x_list.append(x) # adds the rule itself
-                y_list.append(y) # adds the index of that number in the rule
-    return(x_list, y_list)
-
-def rule_check(num, page_list):
-    for pos in range(len(page_list)):
-        if page_list[pos]==num:
-            # print(num, page_list)
-            return(pos)
-
-# organize our lists
+# organize our input into two lists
 paragraphs=''
-with open("example.txt", 'r') as fp:
+with open("input.txt", 'r') as fp:
     for line in fp:
         paragraphs+=line
 two=paragraphs.split('\n\n')
@@ -31,8 +12,16 @@ two=paragraphs.split('\n\n')
 #first list
 page_order=[]
 sublist=two[0].split('\n')
-for i in range(len(sublist)):
+for i in range(len(sublist)): # first number
     page_order.append(sublist[int(i)].split('|'))
+page_dict={}
+for i in range(len(page_order)): # subsequent numbers
+    tmp=[]
+    for j in range(len(page_order)):
+        if page_order[i][0]==page_order[j][0]:
+            tmp.append(page_order[j][1])
+    page_dict[page_order[i][0]]=tmp
+print(page_dict) # Our dict!
 
 # second lists: the update page numbers
 update=[]
@@ -40,37 +29,46 @@ sublist=two[1].split('\n')
 for i in range(len(sublist)):
     update.append(sublist[int(i)].split(','))
 
-organized_list=[]
-# iterate over the rules
-while len(page_order)>2:
-    infini_breaker=0
-    print(f"{page_order}")
-    for i in range(len(page_order)):
-        infini_breaker+=1
-        r_count=0
-        storage=[]
-        for j in range(len(page_order)):
-            if page_order[i][0]==page_order[j][1]:
-                print(f"Rule fail: {page_order[j][0]}|{page_order[j][1]}")
-                r_count+=1 # means that this number is to the right of another number.
-                storage=[]
-            if page_order[i][0]==page_order[j][0]:
-                # print(f"Rule {j} stored.")
-                storage.append(j) # notes all positions of rules containing the # at i
-    if r_count==0: # Current leftmost #
-        infini_breaker=0
-        organized_list.append(page_order[i][0])
-        print(organized_list)
-        k=len(storage)-1
-        while k >= 0:
-            del page_order[storage[k]]
-            print(k)
-            k-=1
-        print(organized_list, page_order)
-    if infini_breaker>2*len(page_order):
-        print("Breaking loops")
-        print(organized_list)
-        break
-organized_list.append(page_order[0][0])
-organized_list.append(page_order[0][1])
-print(organized_list)
+# Main code
+total=0
+loop_count=0
+good_count=0
+report_check=False
+while report_check==False:
+    for report in range(len(update)): # report is the list check and reorder
+        good=True
+        print(update[report])
+        for page in range(len(update[report])): # page is the page currently being checked
+            for left_page in page_dict: # left_page is the dictionary value to look against
+                if update[report][page]==left_page:
+                    for right_page in page_dict[left_page]:
+                        for page2 in range(len(update[report])):
+                            if right_page==update[report][page2]:
+                                # print(update[report][page], update[report][page2])
+                                # print(page_dict[left_page])
+                                if page2-page < 0:
+                                    good = False
+                                    # print(f"{left_page}|{right_page}")
+                                    print(f"Swapping {left_page}|{right_page} in {update[report]} aka p.{page} and p.{page2}")
+                                    update[report][page], update[report][page2] = update[report][page2], update[report][page]
+                                    print(f"New Report: {update[report]}")
+        if good == True:
+            if loop_count==0:
+                print(f"Removing {update[report]}")
+                for i in range(len(update[report])):
+                    update[report][i]=0
+            else:
+                good_count+=1
+        # print(update[report])
+        # total+=int(update[report][(len(update[report])-1)//2])
+        if good == False:
+            print(f"Fixing {update[report]}")
+    loop_count+=1
+    if good_count==len(update):
+        report_check=True
+    else:
+        good_count=0
+# print(update)
+for report in range(len(update)):
+    total+=int(update[report][(len(update[report])-1)//2])
+print(f"Total: {total}")

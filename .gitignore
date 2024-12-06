@@ -1,0 +1,11 @@
+# editor stuff
+*.swp
+
+# Ignore all Python scripts in the root folder
+/*.py
+
+# Allow Python scripts in subfolders
+!/*/
+
+# Hide my test cases
+example*.txt

@@ -45,4 +45,4 @@ for report in range(len(update)): # report is the list check and reorder
                                 good = False
     if good == True:
         total+=int(update[report][(len(update[report])-1)//2])
-print(f"Total: {total}")            
+print(f"Total: {total}")  
