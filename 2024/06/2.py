@@ -6,7 +6,7 @@ dir = 'N'
 guard='^'
 count=1
 #file stuff
-with open("input.txt") as fp:
+with open("example.txt") as fp:
     for line in fp:
         maze.append(line.strip())
 print(maze)
@@ -44,6 +44,9 @@ def check_square(x, y, squares, dir, counter):
             match square:
                 case '^':
                     print("Start square!")
+                    if dir=='N' and counter>5:
+                            counter=False
+                            return(counter, squares)
                     x, y = move(x, y, dir)
                     pass
                 case '.':
@@ -77,8 +80,27 @@ def check_square(x, y, squares, dir, counter):
                     x, y = move(x, y, dir)
                     pass
                 case _:
-                    print("Error!")
-                    break
+                    print('New path!')
+                    match dir:
+                        case 'N':
+                            y+=1
+                            dir='E'
+                            pass
+                        case 'E':
+                            x-=1
+                            dir='S'
+                            pass
+                        case 'S':
+                            y-=1
+                            dir='W'
+                            pass
+                        case 'W':
+                            x+=1
+                            dir='N'
+                            pass
+                    #print(f"New dir: {dir}")
+                    x, y = move(x, y, dir)
+                    pass
             #for maze_line in range(len(squares)):
             #            print(squares[maze_line])
             #print(x, y)
@@ -105,8 +127,21 @@ def move(x, y, direction):
 
 x_0, y_0 = find_coords(guard, maze)
 count, new_maze = check_square(x_0, y_0, maze, dir, count)
-
-print(f"Count: {count}")
-with open('out.txt', 'w') as f:
-    for y in range(len(maze)):
-        print(new_maze[y], file=f)
+loops=0
+#p2
+for row in range(len(new_maze)):
+    for column in range(len(new_maze[row])):
+        if new_maze[row][column-1]=='^':
+            pass
+        elif new_maze[row][column]=='X':
+            new_maze[row]=new_maze[row][:column] + 'O' + new_maze[row][column + 1:]
+            for y in range(len(maze)):
+                print(new_maze[y])
+            print('\n')
+            #count, junk=check_square(x_0, y_0, new_maze, dir, count)
+            if count==False:
+                loops+=1
+            new_maze[row]=new_maze[row][:column] + 'X' + new_maze[row][column + 1:]
+#for y in range(len(maze)):
+#        print(new_maze[y])
+print(f"Loops: {loops}")
