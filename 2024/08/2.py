@@ -14,10 +14,12 @@ for y in range(y_range):
     hash_map.append(blank)
 print(hash_map)
 
-def moving(coords_i, coords_f, x_max, y_max):
-    nodes=[]
-    while ?
-    list.append()
+def moving(coords_i, coords_f, delta_x, delta_y, x_max, y_max):
+    if 
+    y_move=(coords_f[1]-coords_i[1])
+    x_move=(coords_f[0]-coords_i[0])
+    (x,y)=coords_f[1]+y_move
+    return((x, y))
 
 
 for y in range(len(data)):
@@ -34,16 +36,10 @@ for freq in towers:
         for second in towers[freq]:
             if second != first:
                 print(f'1: {first} 2: {second}')
-                delta_x=second[0]-first[0]
-                delta_y=second[1]-first[1]
-                positive=(second[0]+delta_x, second[0]+delta_y)
-                negative=(first[0]-delta_x, first[0]-delta_y)
-                if 0<=positive[0]<x_range and 0<=positive[1]<y_range:
-                    antinodes.append(positive)
-                negative=(2*first[0]-second[0], 2*first[1]-second[1])
-                if 0<=negative[0]<x_range and 0<=negative[1]<y_range:
-                    antinodes.append(negative)
-                print(positive, negative)
+                nodes=moving(first, second, x_range, y_range)
+                if len(nodes) > 0:
+                    for i in nodes:
+                        antinodes.append(i)
             else:
                 break
 for i in range(len(antinodes)):
