@@ -8,7 +8,7 @@ with open("input.txt") as fp:
         map.append(line.strip())
 
 def coords(map):
-    symbols=[]
+    gears=[]
     digits=[]
     for y in range(len(map)):
         for x in range(len(map[y])):
@@ -17,10 +17,10 @@ def coords(map):
             elif map[y][x]==".":
                 pass
             else:
-                symbols.append((x, y))
-    return(digits, symbols)
+                gears.append((x, y))
+    return(digits, gears)
 
-nums, symbols = coords(map)
+nums, gears = coords(map)
 
 def make_numlist(nums, map):
     num_list=[]
@@ -53,21 +53,24 @@ def make_numlist(nums, map):
 
 pairs=make_numlist(nums, map)
 print(pairs)
-for vars in range(len(symbols)):
-    #print(f"Symbol: {map[symbols[vars][1]][symbols[vars][0]]} @ {symbols[vars]}")
-    x_n=symbols[vars][0]
-    y_n=symbols[vars][1]
-    for x in range(x_n-1, x_n+2):
-        for y in range(y_n-1, y_n+2):
+for vars in range(len(gears)): # loop through each gear
+    #print(f"gear: {map[gears[vars][1]][gears[vars][0]]} @ {gears[vars]}")
+    x_n=gears[vars][0]
+    y_n=gears[vars][1]
+    gear_counter=0
+    gear_ratio=1
+    for x in range(x_n-1, x_n+2): #loop through x's
+        for y in range(y_n-1, y_n+2): # loop throgh y's
             for i in range(len(pairs)):
                 for j in range(len(pairs[i][1])):
                     #print(f"x_1: {x}, y_1: {y}, x_2, y_2: {pairs[i][1]}")
                     if pairs[i][1][j] == (x, y):
-                        pairs[i][2]=True
-                        print(f"New: {pairs[i][0]}")
-            
-for loop_count in range(len(pairs)):
-    print(f"{pairs[loop_count][0]}: {pairs[loop_count][2]}")
-    if pairs[loop_count][2]==True:
-        total+=int(pairs[loop_count][0])
+                        if pairs[i][2]==False:
+                            gear_counter+=1
+                            gear_ratio*=int(pairs[i][0])
+                            pairs[i][2]=True
+                            print(f"New: {pairs[i][0]}")
+    if gear_counter==2:
+        total+=gear_ratio
+
 print(f"Total: {total}")
