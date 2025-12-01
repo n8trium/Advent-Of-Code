@@ -1,4 +1,4 @@
-# Day 1: Secret Entrance
+# AoC Day 1: Secret Entrance
 ## Part 1
 
 The Elves have good news and bad news.
