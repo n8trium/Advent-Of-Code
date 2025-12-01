@@ -65,17 +65,20 @@ Following these rotations would cause the dial to move as follows:
 Because the dial points at 0 a total of three times during this process, the password in this example is 3.
 Analyze the rotations in your attached document. What's the actual password to open the door?
 
-Your puzzle answer was 992.
+Your puzzle answer was **992**.
 
 ## Part Two
 
 You're sure that's the right password, but the door won't open.
 You knock, but nobody answers.
+
 You build a snowman while you think.
 As you're rolling the snowballs for your snowman, you find another security document that must have fallen into the snow:
 "Due to newer security protocols, please use password method `0x434C49434B` until further notice."
+
 You remember from the training seminar that "method `0x434C49434B`" means you're actually supposed to count the number of times any click causes the dial to point at 0,
 regardless of whether it happens during a rotation or at the end of one.
+
 Following the same rotations as in the above example, the dial points at zero a few extra times during its rotations:
 ```
     The dial starts by pointing at 50.
@@ -96,5 +99,5 @@ So, in this example, the new password would be `6`.
 **Be careful:** if the dial were pointing at `50`, a single rotation like `R1000` would cause the dial to point at `0` ten times before returning back to `50`!
 Using password method `0x434C49434B`, what is the password to open the door?
 
-Your puzzle answer was 6133.
+Your puzzle answer was **6133**.
 Both parts of this puzzle are complete! They provide two gold stars: `**`
