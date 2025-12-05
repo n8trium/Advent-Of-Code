@@ -1,21 +1,18 @@
-fresh_low=[]
-fresh_high=[]
-ingredients=[]
+temp=[]
+ingredients=set()
 ranges=True
 with open("input.txt") as fp:
     for line in fp:
-        if ranges:
-            if line == "\n":
-                ranges=False
-            else:
-                fresh_low.append(int(line.strip().split("-")[0]))
-                fresh_high.append(int(line.strip().split("-")[-1]))
-        else:
-            ingredients.append(int(line.strip()))
-fresh=0
-for i in ingredients:
-    for j in range(len(fresh_low)):
-        if fresh_low[j] <= i <= fresh_high[j]:
-            fresh+=1
+        if line == "\n":
             break
-print(fresh)
+        temp.append((int(line.strip().split("-")[0]), int(line.strip().split("-")[-1])))
+
+fresh=sorted(temp)
+total=0
+
+right=-1
+for id_range in fresh:
+    left = max(right+1, id_range[0])
+    right = max(right, id_range[1])
+    total += max(0, right-left+1)
+print(total)
