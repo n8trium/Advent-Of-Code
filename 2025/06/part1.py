@@ -15,4 +15,4 @@ for op in range(len(operators)):
         for value in range(1, len(problems)):
             answer += problems[value][op]
     total+=answer
-    print(total)
+print(total)
