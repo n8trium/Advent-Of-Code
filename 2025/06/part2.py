@@ -3,7 +3,6 @@ operators=list(reversed(inputlines[-1].split()))
 problems=[]
 numbers=[]
 for y in reversed(range(len(inputlines[0]))):
-    print(y)
     number=""
     for x in (range(len(inputlines)-1)):
         number+=inputlines[x][y]
