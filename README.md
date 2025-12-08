@@ -5,4 +5,5 @@ The programming puzzles cover a variety of skill sets and skill levels and can b
 These solutions are done by n8trium.
 
 ## Years:
+- [2025/](2025/)
 - [2024/](2024/)

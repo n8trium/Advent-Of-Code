@@ -9,3 +9,5 @@
 
 # Hide my test cases
 example*.txt
+test*.txt
+input*.txt
