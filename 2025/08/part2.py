@@ -22,7 +22,8 @@ for i in junction_boxes:
             distances[f'{i}-{j}']=find_distance(junction_boxes[i], junction_boxes[j])
 
 arranged = dict(sorted(distances.items(), key=lambda item: item[1]))
-for connection in list(arranged.keys())[:1000]:
+circuit_count=0
+for connection in list(arranged.keys()):
     box1, box2 = int(connection.split('-')[0].strip()), int(connection.split('-')[1].strip())
     for i in range(len(circuits)):
         if box1 in circuits[i]:
@@ -38,5 +39,6 @@ for connection in list(arranged.keys())[:1000]:
         else:
             del circuits[j]
             del circuits[i]
-lengths=list(sorted(len(i) for i in circuits))
-print(lengths[-1]*lengths[-2]*lengths[-3])
+    if len(circuits)==1:
+        print(junction_boxes[box1][0]*junction_boxes[box2][0])
+        break
